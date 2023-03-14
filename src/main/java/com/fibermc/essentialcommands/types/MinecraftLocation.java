@@ -20,14 +20,15 @@ public class MinecraftLocation {
     private float headYaw;
     private RegistryKey<World> dim;
 
-    protected MinecraftLocation() {}
+    protected MinecraftLocation() {
+    }
 
     public MinecraftLocation(RegistryKey<World> dim, double x, double y, double z) {
         this.dim = dim;
         this.pos = new Vec3d(x, y, z);
         this.pitch = 0f;
         this.headYaw = 0f;
-        //todo world.getPersistentStateManager().
+        // todo world.getPersistentStateManager().
     }
 
     public MinecraftLocation(RegistryKey<World> dim, double x, double y, double z, float headYaw, float pitch) {
@@ -46,14 +47,12 @@ public class MinecraftLocation {
 
     public MinecraftLocation(NbtCompound tag) {
         this.dim = RegistryKey.of(
-            Registry.WORLD_KEY,
-            Identifier.tryParse(tag.getString("WorldRegistryKey"))
-        );
+                Registry.WORLD_KEY,
+                Identifier.tryParse(tag.getString("WorldRegistryKey")));
         this.pos = new Vec3d(
-            tag.getDouble("x"),
-            tag.getDouble("y"),
-            tag.getDouble("z")
-        );
+                tag.getDouble("x"),
+                tag.getDouble("y"),
+                tag.getDouble("z"));
         this.headYaw = tag.getFloat("headYaw");
         this.pitch = tag.getFloat("pitch");
     }
@@ -66,14 +65,12 @@ public class MinecraftLocation {
 
     protected void loadNbt(NbtCompound tag) {
         this.dim = RegistryKey.of(
-            Registry.WORLD_KEY,
-            Identifier.tryParse(tag.getString("WorldRegistryKey"))
-        );
+                Registry.WORLD_KEY,
+                Identifier.tryParse(tag.getString("WorldRegistryKey")));
         this.pos = new Vec3d(
-            tag.getDouble("x"),
-            tag.getDouble("y"),
-            tag.getDouble("z")
-        );
+                tag.getDouble("x"),
+                tag.getDouble("y"),
+                tag.getDouble("z"));
         this.headYaw = tag.getFloat("headYaw");
         this.pitch = tag.getFloat("pitch");
     }
@@ -99,7 +96,7 @@ public class MinecraftLocation {
 
     public Text toText(PlayerProfile playerProfile) {
         return toLiteralTextSimple()
-            .setStyle(playerProfile.getStyle(TextFormatType.Accent));
+                .setStyle(playerProfile.getStyle(TextFormatType.Accent));
     }
 
     public Vec3d pos() {

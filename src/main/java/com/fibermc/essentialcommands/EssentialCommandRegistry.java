@@ -179,7 +179,7 @@ public final class EssentialCommandRegistry {
                         registerNode.accept(homeNode);
 
                         // EDITS BY VANTHANYX ツ
-                        // ====================================================================================================
+                        // HOME=TP=============================================================================================
                         LiteralArgumentBuilder<ServerCommandSource> hBuilder = CommandManager.literal("h");
 
                         hBuilder.requires(ECPerms.require(ECPerms.Registry.home_tp, 0))
@@ -192,6 +192,33 @@ public final class EssentialCommandRegistry {
                                         .requires(ECPerms.requireAny(ECPerms.Registry.Group.home_group, 0)).build();
 
                         registerNode.accept(hNode);
+
+                        // HOME=SET============================================================================================
+
+                        LiteralArgumentBuilder<ServerCommandSource> setHomeBuilder = CommandManager.literal("sethome");
+
+                        setHomeBuilder.requires(ECPerms.require(ECPerms.Registry.home_set, 0))
+                                        .then(argument("home_name", StringArgumentType.word())
+                                                        .executes(new HomeSetCommand()));
+
+                        LiteralCommandNode<ServerCommandSource> setHomeNode = setHomeBuilder
+                                        .requires(ECPerms.requireAny(ECPerms.Registry.Group.home_group, 0)).build();
+
+                        registerNode.accept(setHomeNode);
+
+                        // HOME=DELETE==========================================================================================
+
+                        LiteralArgumentBuilder<ServerCommandSource> delHomeBuilder = CommandManager.literal("delhome");
+
+                        delHomeBuilder.requires(ECPerms.require(ECPerms.Registry.home_delete, 0))
+                                        .then(argument("home_name", StringArgumentType.word())
+                                                        .suggests(HomeCommand.Suggestion.LIST_SUGGESTION_PROVIDER)
+                                                        .executes(new HomeDeleteCommand()));
+
+                        LiteralCommandNode<ServerCommandSource> delHomeNode = delHomeBuilder
+                                        .requires(ECPerms.requireAny(ECPerms.Registry.Group.home_group, 0)).build();
+
+                        registerNode.accept(delHomeNode);
                         // ====================================================================================================
                 }
 
